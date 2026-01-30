@@ -1,6 +1,7 @@
 ﻿using _15_NguyenTheNam_MVC_Product_DataFirst.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace _15_NguyenTheNam_MVC_Product_DataFirst.Controllers
 {
@@ -16,7 +17,7 @@ namespace _15_NguyenTheNam_MVC_Product_DataFirst.Controllers
         }
 
         // GET: ProductController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -40,23 +41,30 @@ namespace _15_NguyenTheNam_MVC_Product_DataFirst.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Product product)
         {
-            if (!ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                return View(product);
-            }
-
-            try
-            {
-                context.Products.Add(product);
+                context.Add(product);
                 context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
-            {
-                // Có thể log lỗi nếu cần
-                ModelState.AddModelError("", "Create failed!");
-                return View(product);
-            }
+            return View(product);
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(product);
+            //}
+
+            //try
+            //{
+            //    context.Products.Add(product);
+            //    context.SaveChanges();
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Có thể log lỗi nếu cần
+            //    ModelState.AddModelError("", "Create failed!");
+            //    return View(product);
+            //}
 
         }
 
@@ -79,25 +87,33 @@ namespace _15_NguyenTheNam_MVC_Product_DataFirst.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int? id, Product product)
         {
+
             if (id != product.ProductId)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                try
-                {
-                    context.Update(product);
-                    context.SaveChanges();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch
-                {
-                    ModelState.AddModelError("", "Update failed!");
-                }
+                context.Update(product);
+                context.SaveChanges();
+                return RedirectToAction(nameof(Index));
             }
             return View(product);
+
+            //if (ModelState.IsValid)
+            //{
+            //    try
+            //    {
+            //        context.Update(product);
+            //        context.SaveChanges();
+            //        return RedirectToAction(nameof(Index));
+            //    }
+            //    catch
+            //    {
+            //        ModelState.AddModelError("", "Update failed!");
+            //    }
+            //}
+            //return View(product);
         }
 
         // GET: ProductController/Delete/5
