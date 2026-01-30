@@ -1,0 +1,35 @@
+﻿@model _15_NguyenTheNam_MVC_Product_DataFirst.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+<div>
+    <h4>
+        Product
+    </h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sn-2">
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+        <dd class="col-sn-10">
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+        <dt class="col-sn-2">
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+        <dd class="col-sn-10">
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+        <dt class="col-sn-2">
+            @Html.DisplayNameFor(model => model.UnitInStock)
+        </dt>
+        <dd class="col-sn-10">
+            @Html.DisplayFor(model => model.UnitInStock)
+        </dd>
+    </dl>
+</div>
+
